@@ -5,10 +5,6 @@ abort() {
     exit 1
 }
 
-if ! [ -x "$(command -v zsh)" ]; then
-    abort 'Error: "zsh" is not installed. Please install "zsh" first'
-fi
-
 IS_MAC=false
 
 # First check OS.
@@ -31,6 +27,15 @@ install_brew() {
     echo '# Set PATH, MANPATH, etc., for Homebrew.' >>~/.zprofile
     printf 'eval "$(%s/bin/brew shellenv)"\n' $BREW_PREFIX >>~/.zprofile
     eval "$($BREW_PREFIX/bin/brew shellenv)"
+}
+
+install_zsh() {
+    if ! [ -x "$(command -v zsh)" ]; then
+        printf "$s\n\n" 'Installing "zsh"...'
+        brew install zsh
+    else
+        printf "$s\n\n" '"zsh" already installed. Skipping...'
+    fi
 }
 
 install_iterm2() {
@@ -87,6 +92,7 @@ main() {
     echo "Starting the setup..."
 
     install_brew
+    install_zsh
     install_iterm2
     install_git
     install_omz
