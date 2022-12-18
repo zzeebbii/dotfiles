@@ -65,6 +65,8 @@ install_powerlevel_10k() {
     if [[ ! -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k ]]; then
         echo "5. Installing PowerLevle10k theme"
         git clone https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+
+        sed -i '/^ZSH_THEME/c ZSH_THEME="powerlevel10k/powerlevel10k"' ~/.zshrc
     else
         echo '"powerlevel10k" theme already installed. Skipping...'
     fi
